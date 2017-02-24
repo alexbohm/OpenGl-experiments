@@ -1,7 +1,21 @@
 #include <iostream>
-//#include <GL/freeglut.h>
 #include <GL/glut.h>
-//#include <Gl/glu>
+
+#include <iostream>
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+
+//-framework GLUT -framework Cocoa -framework OpenGL openglstart.cpp
+
 using namespace std;
 double rotation;
 static void display()
@@ -27,13 +41,6 @@ static void display()
     glLoadIdentity();
     glRotated(45,1,0,0);
     glRotated(rotation,0,1,0);
-    /*glBegin(GL_QUADS);
-        glColor3f(1.0f,1.0f,1.0f);
-        glVertex3f(0.0f,0.0f,0.0f);
-        glVertex3f(0.0f,1.0f,0.0f);
-        glVertex3f(1.0f,1.0f,1.0f);
-        glVertex3f(1.0f,0.0f,1.0f);
-    glEnd();*/
 
     glutSwapBuffers();
     //cout<<"buff switch"<<endl;
