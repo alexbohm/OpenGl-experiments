@@ -15,6 +15,7 @@
 #endif
 
 //-framework GLUT -framework Cocoa -framework OpenGL openglstart.cpp
+//this command to get the grand thing to work on Apple
 
 using namespace std;
 double rotation;
