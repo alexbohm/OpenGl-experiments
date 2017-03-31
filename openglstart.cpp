@@ -1,5 +1,5 @@
-#include <iostream>
-using namespace std;
+//#include <iostream>
+//using namespace std;
 
 #ifdef __APPLE__
 #include <GLUT/glut.h>
@@ -18,44 +18,48 @@ static void display()
 		glVertex3f(1,0,0);
 		glColor3f(1,1,1);
 		glVertex3f(0,0,1);
-
+		
 		glColor3f(0.01f,0.01f,0.01f);
 		glVertex3f(0,0,0);
 		glColor3f(1,1,1);
 		glVertex3f(0,1,0);
 		glColor3f(1,1,1);
 		glVertex3f(0,0,1);
-
+		
 		glColor3f(0.01f,0.01f,0.01f);
 		glVertex3f(0,0,0);
 		glColor3f(1,1,1);
 		glVertex3f(0,1,0);
 		glColor3f(1,1,1);
 		glVertex3f(1,0,0);
-	glEnd();
-	
+	glEnd();/*
+	glBegin(GL_LINES);
+		glColor3f(1,0,0);
+		glVertex3f(0.8,0,0);
+		glVertex3f(1,0,0);
+	glEnd();*/
 	glLoadIdentity();
-	glRotated(45,1,0,0);
+	glRotated(-45,1,0,0);
 	glRotated(rotation,0,1,0);
 	glutSwapBuffers();
 };
 void mouseClick(int button, int state, int x, int y){
-	//cout<<"Clicked: "<<button<< " State: "<<state << " Location: "<<x<<':'<<y<<endl;
-	if(button==3 && state==0){
-		rotation += 2.0;
+	if(!state) return;
+	switch(button){
+		case 3:
+			rotation += 1.0;
+			break;
+		case 4:
+			rotation -= 1.0;
+			break;
 	}
-	if(button==4 && state==0){
-		rotation -= 2.0;
-	}
-	display();
+	glutPostRedisplay();
 }
 int main(int argc, char** argv)
 {
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_GREATER);
-
+	
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGBA);
+	glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGBA|GLUT_DEPTH);
 	glutInitWindowSize(1000, 1000);
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("Test");
@@ -63,9 +67,10 @@ int main(int argc, char** argv)
 	glutMouseFunc(mouseClick);
 	glutDisplayFunc(display);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	
-	
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
 	glutMainLoop();
 	
 	return 0;
